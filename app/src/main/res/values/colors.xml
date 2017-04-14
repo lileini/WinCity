@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--*****************All colors In Application***********************-->
+    <color name="color_eff7fd">#eff7fd</color>
+    <color name="color_ecf3f9">#ecf3f9</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_35a7ee">#35a7ee</color>
+    <color name="color_c8c7cc">#c8c7cc</color>
+    <color name="color_7690a0">#7690a0</color>
+    <color name="color_f0b012">#f0b012</color>
+    <color name="color_f5f5f5">#f5f5f5</color>
+    <color name="color_75b0ff">#75b0ff</color>
+    <color name="color_53e79d">#53e79d</color>
+    <color name="color_529eff">#529eff</color>
+    <color name="color_a2a8b2">#a2a8b2</color>
+    <color name="color_000000">#000000</color>
+    <color name="color_d8d8d8">#d8d8d8</color>
+    <color name="color_a3a8b3">#a3a8b3</color>
+    <color name="color_272636">#272636</color>
+    <color name="color_4b5563">#4b5563</color>
+    <color name="color_1f1f1f">#1f1f1f</color>
+    <color name="color_636d7c">#636d7c</color>
+    <color name="color_a1a6b1">#a1a6b1</color>
+    <color name="color_b1c0d6">#b1c0d6</color>
+    <color name="color_aebdd4">#aebdd4</color>
+    <color name="color_AFBDD4">#AFBDD4</color>
+    <color name="color_9da3ae">#9da3ae</color>
+    <color name="color_525a65">#525a65</color>
+    <color name="color_7d848e">#887d848e</color>
+    <color name="color_888f98">#8f98</color>
+    <color name="color_e0635a">#e0635a</color>
+    <color name="color_757575">#757575</color>
+    <color name="color_8796ad">#8796ad</color>
+    <color name="color_37d987">#37d987</color>
+    <color name="color_848b95">#848b95</color>
+    <color name="color_e4e3e6">#e4e3e6</color>
+    <color name="color_0288d1">#0288d1</color>
+    <color name="color_252525">#252525</color>
+    <color name="color_212121">#212121</color>
+    <color name="color_bdbdbd">#bdbdbd</color>
+    <color name="color_808080">#808080</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_03a9f4">#03a9f4</color>
+    <color name="color_929292">#929292</color>
+    <color name="color_ebebeb">#ebebeb</color>
+    <color name="color_1b93d5">#1b93d5</color>
+    <color name="color_777777">#777777</color>
+    <color name="color_4e4e4e">#4e4e4e</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_ffcb04">#ffcb04</color>
+    <color name="color_ffe78b">#ffe78b</color>
+    <color name="color_c68b09">#c68b09</color>
+    <color name="color_7a1953">#7a1953</color>
+    <color name="color_1c1c1c">#1c1c1c</color>
+    <color name="color_c1c1c1">#c1c1c1</color>
+    <color name="color_0d0d0d">#0d0d0d</color>
+    <color name="color_ffc500">#ffc500</color>
+    <color name="color_898989">#898989</color>
+    <color name="color_fff8da">#fff8da</color>
+    <color name="color_efeff4">#EFEFF4</color>
+    <color name="color_9b9b9b">#9b9b9b</color>
+    <color name="color_262626">#262626</color>
+    <color name="color_5c5c5c">#5c5c5c</color>
+    <color name="color_f4f4f4">#f4f4f4</color>
+    <color name="color_393939">#393939</color>
+    <color name="color_2b2b2b">#2b2b2b</color>
+    <color name="color_3b3b3b">#3b3b3b</color>
+    <color name="color_d9d9d9">#d9d9d9</color>
+    <color name="color_444444">#444444</color>
+    <color name="color_7f7f7f">#7f7f7f</color>
+    <color name="color_414141">#414141</color>
+    <color name="color_293031">#293031</color>
+    <color name="color_515151">#515151</color>
+    <!--*****************All colors In Application***********************-->
+
+    <color name="colorPrimary">#35a6ed</color>
+    <color name="colorPrimaryDark">#35a6ed</color>
+    <color name="colorAccent">#8c8b8b</color>
+    <color name="white">#ffffff</color>
+    <color name="white_tint">#8fffff</color>
+    <color name="base_line">#cccccc</color>
+    <color name="set_font">#7d848e</color>
+    <color name="primary">#eff0f0</color>
+
+    <color name="head_title">#ffECEDEE</color>
+
+
+    <!--add for toku start-->
+    <color name="color_030303">#030303</color>
+    <color name="color_FFEFF0F0">#FFEFF0F0</color>
+    <color name="Color_ffffff">#ffffff</color>
+    <color name="Color_404950">#404950</color>
+    <color name="Color_eaeaea">#eaeaea</color>
+    <color name="Color_3a3a3a">#3a3a3a</color>
+    <color name="Color_00ccc4">#00ccc4</color>
+    <color name="Color_f1f1f1">#f1f1f1</color>
+
+
+    <!--add for toku end-->
+
+    <!--add for custom alertdialog begin-->
+    <color name="trans">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="alertdialog_line">#c6c6c6</color>
+    <color name="actionsheet_blue">#037BFF</color>
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
+    <!--add for custom alertdialog end-->
+
+    <color name="color_fef9e2">#fef9e2</color>
+    <color name="color_fecc0a">#fecc0a</color>
+
+    <color name="bdb9ad">#BDB9AD</color>
+
+    <color name="f60000">#f60000</color>
+    <color name="color_00bd15">#00bd15</color>
+    <color name="color_FF1A6021">#FF1A6021</color>
+    <color name="color_4a4a4a">#4a4a4a</color>
+    <color name="color_efeff">#efeff4</color>
+</resources>

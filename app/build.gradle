@@ -1,0 +1,279 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt' //dragger
+apply plugin: 'realm-android'  //realm
+
+
+def String dev = "dev";
+def String staging = "staging";
+def String product = "product";
+//api environment
+def String api_env = staging;//
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    dexOptions {
+        javaMaxHeapSize "4g"//增加应用内存限制
+    }
+    def boolean BUILD_CONTROL = false;
+
+
+//    def version_code = gitCommitCount().toInteger();
+    def runTasks = gradle.startParameter.taskNames
+    if ('upload' in runTasks || 'assemble' in runTasks || 'assembleRelease' in runTasks) {
+        BUILD_CONTROL = true;
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    defaultConfig {
+        applicationId "wincity.litao.com"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1//version_code
+        versionName "ss"//version_Name()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        // Enabling multidex support.
+        multiDexEnabled true
+        //添加buildConfig文件
+        buildConfigField('String','API_ENVIRONMENT',getApiEnvName(api_env))
+        buildConfigField('String','dev',"\"dev\"")
+        buildConfigField('String','staging',"\"staging\"")
+        buildConfigField('String','product',"\"product\"")
+    }
+
+    //fix Instant Run does not support deploying build variants with multidex enabled
+    productFlavors {
+        instant {
+            minSdkVersion 21
+        }
+        app {
+            minSdkVersion 15
+        }
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a'
+        }
+    }
+
+    signingConfigs { //签名配置
+        release {
+            storeFile file("../android_keystore")
+            storePassword "globalroam"
+            keyAlias "cd"
+            keyPassword "123456"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false // 是否混淆
+            shrinkResources false // 是否去除无效的资源文件
+            zipAlignEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//            resValue('string','app_name',app_name)
+            /*if (api_env != product){
+                applicationIdSuffix ".staging"
+            }*/
+        }
+
+        debug {
+            minifyEnabled false // 是否混淆
+            shrinkResources false // 是否去除无效的资源文件
+            zipAlignEnabled true
+            debuggable true
+//            signingConfig signingConfigs.release
+//            resValue('string','app_name',app_name)
+
+        }
+    }
+
+    if (BUILD_CONTROL) {
+        applicationVariants.all { variant ->
+            appendVersionNameVersionCode(variant, defaultConfig)
+
+        }
+    }
+
+
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    //butterknife
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+}
+def getApiEnvName(env){
+    return "\""+env+"\"";
+}
+
+
+
+def version_Name() {
+    def projname = "dev"//keep this comment
+    return "${rootProject.versionMajor}.${rootProject.versionMinor}.${gitCommitCount()}${getDate()}" + projname
+}
+//如果你的git不在系统环境变量里面，请设置git.exe的全路径
+def gitSha1() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
+def getDate() {
+    return "-date-" + new Date().format("yyyy.MM.dd.HH.mm", TimeZone.getTimeZone("GMT+8"));
+}
+// 獲取當前分支的提交次數
+def gitCommitCount() {
+    return 'git rev-list HEAD --count'.execute().text.trim();
+}
+//get the name of current branch
+def getWorkingBranch() {
+    // Triple double-quotes for the breaklines
+    def workingBranch = """git rev-parse --abbrev-ref HEAD""".execute().text.trim()
+    return workingBranch
+}
+
+def getMyApplicationId(api_env){
+    if (api_env != "product"){
+        return "com.globalroam.android.toku.staging"
+    }else {
+        return "com.globalroam.android.toku"
+    }
+}
+
+def getApiEnvriment(api_env){
+    if (api_env == "dev"){
+        return "d"
+    }else if (api_env == "staging"){
+        return "s"
+    }else if (api_env == "product"){
+        return "p"
+    }
+}
+
+def appendVersionNameVersionCode(variant, defaultConfig) {
+    copy {
+        from 'mapping.txt'
+        into './build/outputs/apk/'
+        rename 'mapping.txt', "mapping-${android.defaultConfig.versionCode}.txt"
+    }
+
+    variant.outputs.each { output ->
+        def file = output.outputFile
+        def fileName = file.name.replace(".apk", defaultConfig.versionName + ".apk")
+        def contents = fileName.replaceAll('app-app-release', 'android-')
+        output.outputFile = new File(file.parent, contents);
+    }
+}
+
+task upload(type: Exec) {
+
+    dependsOn 'assembleRelease'
+
+    def filePath = "${rootProject.rootDir}/app/build/outputs/apk/android-"
+
+    filePath = "${filePath}${version_Name()}.apk"
+
+    executable 'sh'
+
+    args "-c", "../upload.sh $filePath"
+
+}
+repositories {
+    maven {
+        url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' //realm使用chrome查看
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:support-vector-drawable:25.3.0'
+    testCompile 'junit:junit:4.12'
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //multdex
+    compile "com.android.support:multidex:1.0.1"
+    //rx
+    compile "io.reactivex.rxjava2:rxjava:2.0.1"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.trello:rxlifecycle-components:0.6.1'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    compile "com.jakewharton.rxbinding2:rxbinding-design:2.0.0"
+    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+
+    //okhttp3 & retrofit
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile "com.squareup.retrofit2:converter-gson:2.2.0"
+    compile "com.squareup.retrofit2:adapter-rxjava:2.2.0"
+//    compile 'com.trello:rxlifecycle-android:1.0'
+
+    //stetho
+    compile "com.facebook.stetho:stetho:1.5.0"
+    compile "com.facebook.stetho:stetho-okhttp3:1.5.0"
+
+
+    //dragger2
+    provided 'javax.annotation:javax.annotation-api:1.2'
+    compile 'com.google.dagger:dagger:2.10'
+    apt 'com.google.dagger:dagger-compiler:2.10'
+
+    //logger
+    compile 'com.orhanobut:logger:1.15'
+
+    //realm
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.uphyca:stetho_realm:2.0.0'//realm使用chrome查看
+    //gson
+    compile "com.google.code.gson:gson:2.8.0"
+
+    //glide
+    compile "com.github.bumptech.glide:glide:3.7.0"
+    compile "jp.wasabeef:glide-transformations:2.0.2"
+
+    //galleryfinal
+    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+
+//    bugly
+    compile "com.tencent.bugly:crashreport:2.5.0"
+    compile "com.tencent.bugly:nativecrashreport:latest.release"
+
+    //pingyin
+    compile "com.github.promeg:tinypinyin:1.0.0"
+
+    //eventbus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    //leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+
+
+    //libphone
+    compile 'com.googlecode.libphonenumber:libphonenumber:8.4.0'
+
+}
