@@ -213,7 +213,7 @@ public class ImageUtils {
                     return;
             }
         }
-        android.util.Log.i(TAG, "loadCircleImage: url: " + url);
+        LogUtil.i(TAG, "loadCircleImage: url: " + url);
         DrawableRequestBuilder<String> builder = Glide.with(context)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -226,13 +226,13 @@ public class ImageUtils {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
                         //                        e.printStackTrace();
-                        Log.i(TAG, "onException model ==" + model + " isFirstResource ==" + isFirstResource);
+                        LogUtil.i(TAG, "onException model ==" + model + " isFirstResource ==" + isFirstResource);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        Log.i(TAG, "onResourceReady model ==" + model + " isFromMemoryCache ==" + isFromMemoryCache + " isFirstResource ==" + isFirstResource);
+                        LogUtil.i(TAG, "onResourceReady model ==" + model + " isFromMemoryCache ==" + isFromMemoryCache + " isFirstResource ==" + isFirstResource);
                         return false;
                     }
                 })

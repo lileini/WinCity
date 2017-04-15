@@ -1,13 +1,12 @@
 package wincity.litao.com.http.interceptor;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import wincity.litao.com.util.LogUtil;
 
 /**
  * created by litao
@@ -20,7 +19,7 @@ public class HostInterceptor implements Interceptor {
 
         Request request = chain.request();
         Request build =null;
-        Log.i(TAG, "url intercept: "+chain.request().url().toString());
+        LogUtil.i(TAG, "url intercept: "+chain.request().url().toString());
         HttpUrl url = request.url();
         String urls = "subscription.uservice.gnum.com";
 //        Log.i(TAG, "host url intercept: "+url.host());

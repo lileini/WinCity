@@ -5,22 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.trello.rxlifecycle.components.support.RxFragment;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
+import wincity.litao.com.util.BusUtil;
+import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
 /**
  * Created by shang guangneng on 2016/6/8 0008.
  */
-public abstract class BaseFragment extends RxFragment implements IDelegate{
+public abstract class BaseFragment extends RxFragment {
 
     protected String TAG;
     protected SparseArray<View> mViews = new SparseArray<>();
@@ -30,22 +30,28 @@ public abstract class BaseFragment extends RxFragment implements IDelegate{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG,"onCreate");
+        LogUtil.i(TAG,"onCreate");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LogUtil.i(TAG,"onStart");
+        BusUtil.register(this);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        create(inflater,container,savedInstanceState);
-        initView(savedInstanceState);
-        Log.i(TAG,"onCreateView");
-        return rootView;
+        LogUtil.i(TAG,"onCreateView");
+        return super.onCreateView(inflater,container,savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG,"onViewCreated");
+        LogUtil.i(TAG,"onViewCreated");
 
     }
 
@@ -54,28 +60,35 @@ public abstract class BaseFragment extends RxFragment implements IDelegate{
         super.onAttach(context);
         TAG=this.getClass().getSimpleName();
         mContext = (Activity) context;
-        Log.i(TAG,"onAttach");
+        LogUtil.i(TAG,"onAttach");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.i(TAG,"onPause");
+        LogUtil.i(TAG,"onPause");
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(TAG,"onResume");
+        LogUtil.i(TAG,"onResume");
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtil.i(TAG,"onStop");
+        BusUtil.unregister(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mContext = null;
-        Log.i(TAG,"onDestroy");
+        LogUtil.i(TAG,"onDestroy");
 
     }
 
@@ -144,42 +157,6 @@ public abstract class BaseFragment extends RxFragment implements IDelegate{
         return view;
     }
 
-    @Override
-    public void create(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (null == rootView) {
-            rootView=inflater.inflate(getRootLayoutId(), container, false);
-            Log.i(TAG, " create fragment rootView SUCCESS");
-        }
-    }
-
-    @Override
-    public void initListener(View.OnClickListener listener, int... ids) {
-        if (ids == null) {
-            return;
-        }
-        for (int id : ids) {
-            bind(id).setOnClickListener(listener);
-        }
-    }
-    @Override
-    public void initListener(View.OnClickListener listener,View... views) {
-        if (views == null) {
-            return;
-        }
-        for (View view : views) {
-            if (view!=null)view.setOnClickListener(listener);
-        }
-    }
-    @Override
-    public void initOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener listener,CompoundButton... compoundButtons) {
-        if (compoundButtons == null) {
-            return;
-        }
-        for (CompoundButton btn : compoundButtons) {
-            btn.setOnCheckedChangeListener(listener);
-        }
-
-    }
 
 
     /**

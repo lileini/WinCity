@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 
 import java.net.SocketTimeoutException;
 
-import retrofit2.adapter.rxjava.HttpException;
+import retrofit2.HttpException;
 import wincity.litao.com.util.LogUtil;
 
 

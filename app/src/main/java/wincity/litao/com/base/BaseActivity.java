@@ -12,21 +12,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.lang.reflect.Field;
 
 import wincity.litao.com.App;
-import wincity.litao.com.R;
+import wincity.litao.com.util.BusUtil;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -36,13 +32,12 @@ import wincity.litao.com.util.ToastUtil;
  * Created by shang guangneng on 2016/6/8 0008.
  * Android development framework
  */
-public abstract class BaseActivity extends RxAppCompatActivity{
+public abstract class BaseActivity extends RxAppCompatActivity {
 
 
     protected String TAG;
 
     private SparseArray<View> mViews = new SparseArray<>();
-    private View rootView = null;
     /**
      * @return root 设置root视图ID =xml layout id
      */
@@ -71,28 +66,7 @@ public abstract class BaseActivity extends RxAppCompatActivity{
         return view;
     }
 
-    public View getRootView(){
-        return rootView;
-    }
 
-
-    /**
-     * 返回当前的Activity
-     *
-     * @param <T>
-     * @return
-     */
-    public <T extends Activity> T getActivity() {
-        return (T) rootView.getContext();
-    }
-
-    @Override
-    public void create(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (null == rootView) {
-            rootView=inflater.inflate(getRootLayoutId(), container, false);
-            Log.i(TAG, " create rootView SUCCESS");
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -102,14 +76,7 @@ public abstract class BaseActivity extends RxAppCompatActivity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        setTheme(R.style.pageTheme);
         TAG = getClass().getSimpleName();
-        create(getLayoutInflater(), null, savedInstanceState);
-        setContentView(rootView);
-        Log.i(TAG,"onCreate");
-
-//
-//        RefWatcher refWatcher = App.getInstance().getRefWatcher();
-//        if(refWatcher!=null)
-//            refWatcher.watch(this);
+        LogUtil.i(TAG,"onCreate");
 
 
         setTopBar();
@@ -119,6 +86,7 @@ public abstract class BaseActivity extends RxAppCompatActivity{
     protected void onStart() {
         super.onStart();
         LogUtil.i(TAG,"onStart");
+        BusUtil.register(this);
 
     }
 
@@ -126,6 +94,7 @@ public abstract class BaseActivity extends RxAppCompatActivity{
     protected void onStop() {
         super.onStop();
         LogUtil.i(TAG,"onStop");
+        BusUtil.unregister(this);
     }
 
     @Override

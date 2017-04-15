@@ -42,7 +42,7 @@ public class CustomFontsLoader {
 				loadFonts(context);
 			} catch (Exception e) {
 				e.printStackTrace();
-				Log.e("font load error",fontIdentifier+"error happned"+e.getMessage());
+				LogUtil.e("font load error",fontIdentifier+"error happned"+e.getMessage());
 			}
 		}
 		return fonts[fontIdentifier];

@@ -23,12 +23,12 @@ public class MCCUtil {
         if (!TextUtils.isEmpty(simoperator)) {
             mccsim = Integer.parseInt(simoperator.substring(0, 3));
         }
-        Log.i("MCCUtil", "mccsim ==" + mccsim + "; mcc==" + mcc);
+        LogUtil.i("MCCUtil", "mccsim ==" + mccsim + "; mcc==" + mcc);
         if (mccsim == mcc && mcc == 525) {
-            Log.i("MCCUtil", "enable");
+            LogUtil.i("MCCUtil", "enable");
             return true;
         }
-        Log.i("MCCUtil", "disable");
+        LogUtil.i("MCCUtil", "disable");
         return false;
     }
 
@@ -40,7 +40,7 @@ public class MCCUtil {
 
             result = false;
         }
-        Log.i("MCCUtil", "isMCCInSG: " + isMCCInSG() + ";SPUtil.getCode()== " + SPUtil.getCode() + " ----> isRoaming : " + result);
+        LogUtil.i("MCCUtil", "isMCCInSG: " + isMCCInSG() + ";SPUtil.getCode()== " + SPUtil.getCode() + " ----> isRoaming : " + result);
         return result;
     }
 
@@ -70,13 +70,13 @@ public class MCCUtil {
             if (!TextUtils.isEmpty(simoperator)) {
                 mccsim = Integer.parseInt(simoperator.substring(0, 3));
             }
-            Log.i("MCCUtil", "mccsim ==" + mccsim + "; mcc==" + mcc);
+            LogUtil.i("MCCUtil", "mccsim ==" + mccsim + "; mcc==" + mcc);
             if (mccsim == mcc) {
-                Log.i("MCCUtil", "enable");
+                LogUtil.i("MCCUtil", "enable");
                 return false;
             }
         }catch (Exception e){
-            Log.i("MCCUtil", "exception "+e.getMessage());
+            LogUtil.i("MCCUtil", "exception "+e.getMessage());
             return false;
         }
         return true;

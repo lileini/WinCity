@@ -1,7 +1,5 @@
 package wincity.litao.com.http;
 
-import android.util.Log;
-
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.File;
@@ -11,13 +9,14 @@ import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wincity.litao.com.BuildConfig;
 import wincity.litao.com.http.interceptor.HeaderInterceptor;
 import wincity.litao.com.http.interceptor.NetworkInterceptor;
 import wincity.litao.com.http.interceptor.TimeOutInterceptor;
 import wincity.litao.com.util.CacheDirUtil;
+import wincity.litao.com.util.LogUtil;
 
 
 /**
@@ -48,7 +47,7 @@ public class ApiManager {
     private ApiManager() {
         //        SSLSocketFactory sslSocketFactory = SSLContextUtils.getSSLContext().getSocketFactory();
 
-        Log.i(TAG, "cacheDir: " + CacheDirUtil.getCacheDir());
+        LogUtil.i(TAG, "cacheDir: " + CacheDirUtil.getCacheDir());
         //缓存目录
         Cache cache = new Cache(new File(CacheDirUtil.getCacheDir()), 10 * 1024 * 1024);
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -91,7 +90,7 @@ public class ApiManager {
         Retrofit.Builder retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
 
         retrofit.client(builder.build());
         apiServer = retrofit.build().create(ApiServer.class);
