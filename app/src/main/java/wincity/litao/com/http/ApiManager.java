@@ -5,8 +5,10 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -95,5 +97,8 @@ public class ApiManager {
         retrofit.client(builder.build());
         apiServer = retrofit.build().create(ApiServer.class);
 
+    }
+    public Flowable<ResponseBody> getOtp(){
+        return apiServer.otpRequest("8615928188669","sms:twilio","GLOBALROAM");
     }
 }

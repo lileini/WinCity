@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
-import wincity.litao.com.util.BusUtil;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -30,65 +29,73 @@ public abstract class BaseFragment extends RxFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.i(TAG,"onCreate");
+        LogUtil.i(TAG, "onCreate");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        LogUtil.i(TAG,"onStart");
-        BusUtil.register(this);
+        LogUtil.i(TAG, "onStart");
+        registerEventBus();
 
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LogUtil.i(TAG,"onCreateView");
-        return super.onCreateView(inflater,container,savedInstanceState);
+        LogUtil.i(TAG, "onCreateView");
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtil.i(TAG,"onViewCreated");
+        LogUtil.i(TAG, "onViewCreated");
 
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        TAG=this.getClass().getSimpleName();
+        TAG = this.getClass().getSimpleName();
         mContext = (Activity) context;
-        LogUtil.i(TAG,"onAttach");
+        LogUtil.i(TAG, "onAttach");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.i(TAG,"onPause");
+        LogUtil.i(TAG, "onPause");
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtil.i(TAG,"onResume");
+        LogUtil.i(TAG, "onResume");
 
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        LogUtil.i(TAG,"onStop");
-        BusUtil.unregister(this);
+        LogUtil.i(TAG, "onStop");
+        unregisterEventBus();
+    }
+
+    void registerEventBus() {
+
+    }
+
+    void unregisterEventBus() {
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mContext = null;
-        LogUtil.i(TAG,"onDestroy");
+        LogUtil.i(TAG, "onDestroy");
 
     }
 
@@ -130,8 +137,8 @@ public abstract class BaseFragment extends RxFragment {
      * @param strId 显示信息在XML中ID
      */
     protected void showToast(int strId) {
-        if(getActivity()!=null)
-         ToastUtil.showToast(getActivity(), strId, Toast.LENGTH_SHORT);
+        if (getActivity() != null)
+            ToastUtil.showToast(getActivity(), strId, Toast.LENGTH_SHORT);
     }
 
     /**
@@ -158,24 +165,22 @@ public abstract class BaseFragment extends RxFragment {
     }
 
 
-
     /**
      * @return root 设置root视图ID =xml layout id
      */
     public abstract int getRootLayoutId();
 
     public void goneView(@Nullable View v) {
-      v.setVisibility(View.GONE);
+        v.setVisibility(View.GONE);
     }
+
     public void visibleView(@Nullable View v) {
         v.setVisibility(View.VISIBLE);
     }
+
     public void invisibleView(@Nullable View v) {
         v.setVisibility(View.INVISIBLE);
     }
-
-
-
 
 
 }

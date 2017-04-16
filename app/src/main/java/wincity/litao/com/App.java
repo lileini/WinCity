@@ -17,7 +17,6 @@ import cn.finalteam.galleryfinal.ImageLoader;
 import cn.finalteam.galleryfinal.ThemeConfig;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import wincity.litao.com.util.BusUtil;
 import wincity.litao.com.util.GlideImageLoader;
 
 /**
@@ -33,7 +32,7 @@ public class App extends Application {
 
     }
     private void init(){
-        BusUtil.register(this);
+//        BusUtil.register(this);
         Stetho.initializeWithDefaults(this);
         //Bugly init
 //        CrashReport.initCrashReport(getApplicationContext(), "900053490"/*App ID*/, false);
@@ -120,6 +119,6 @@ public class App extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        BusUtil.unregister(this);
+//        BusUtil.unregister(this);
     }
 }

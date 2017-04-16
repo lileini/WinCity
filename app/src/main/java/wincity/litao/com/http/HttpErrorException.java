@@ -89,6 +89,7 @@ public class HttpErrorException {
         }
         return error;
     }
+
     public static APIErrorEntity getErrorEntity(Throwable throwable){
         APIErrorEntity errorEntity=null;
         String error;

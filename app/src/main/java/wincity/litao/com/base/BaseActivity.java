@@ -22,7 +22,6 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.lang.reflect.Field;
 
 import wincity.litao.com.App;
-import wincity.litao.com.util.BusUtil;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -41,7 +40,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     /**
      * @return root 设置root视图ID =xml layout id
      */
-    public abstract int getRootLayoutId();
+//    public abstract int getRootLayoutId();
 
     /**
      * @param id
@@ -86,7 +85,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onStart() {
         super.onStart();
         LogUtil.i(TAG,"onStart");
-        BusUtil.register(this);
+        registerEventBus();
 
     }
 
@@ -94,7 +93,13 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onStop() {
         super.onStop();
         LogUtil.i(TAG,"onStop");
-        BusUtil.unregister(this);
+        unregisterEventBus();
+    }
+    protected void registerEventBus(){
+
+    }
+    protected void unregisterEventBus(){
+
     }
 
     @Override
