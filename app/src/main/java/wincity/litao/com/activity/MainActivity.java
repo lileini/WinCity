@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.concurrent.TimeUnit;
@@ -21,13 +20,12 @@ import wincity.litao.com.R;
 import wincity.litao.com.base.BaseActivity;
 import wincity.litao.com.bus.BaseEvent;
 import wincity.litao.com.bus.BusUtil;
-import wincity.litao.com.bus.Xevent;
 import wincity.litao.com.http.ApiManager;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
 public class MainActivity extends BaseActivity {
-
+    private static final String TAG = "MainActivity";
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -55,8 +53,8 @@ public class MainActivity extends BaseActivity {
                                 public void accept(ResponseBody responseBody) throws Exception {
                                     String string = responseBody.string();
                                     BaseEvent.RequestOtpEvent success = BaseEvent.RequestOtpEvent.SUCCESS;
-                                    //                                    BusUtil.getEventBust().post(success);
-                                    BusUtil.getEventBust().post(new Xevent());
+                                    BusUtil.post(success);
+                                    //                                    EventBus.getDefault().post(new Xevent());
                                     LogUtil.i(TAG, string);
                                 }
                             }, new Consumer<Throwable>() {
@@ -65,7 +63,7 @@ public class MainActivity extends BaseActivity {
                                     LogUtil.i(TAG, throwable.toString());
                                     BaseEvent.RequestOtpEvent unsuccess = BaseEvent.RequestOtpEvent.UNSUCCESS;
                                     unsuccess.setMessage(throwable);
-                                    BusUtil.getEventBust().post(BaseEvent.RequestOtpEvent.UNSUCCESS);
+                                    BusUtil.post(BaseEvent.RequestOtpEvent.UNSUCCESS);
                                 }
                             }, new Action() {
                                 @Override
@@ -84,7 +82,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -92,28 +89,27 @@ public class MainActivity extends BaseActivity {
 
     //    No subscribers registered for event class wincity.litao.com.bus.BaseEvent$RequestOtpEvent
     @Subscribe
-    public void registerResult(Xevent x) {
-        /*LogUtil.i(TAG,"registerResult");
-        if (commonEvnet == BaseEvent.RequestOtpEvent.SUCCESS){
-            ToastUtil.showToast(this,"请求otp成功", Toast.LENGTH_SHORT);
-        }else {
-            ToastUtil.showToast(this,"请求otp失败", Toast.LENGTH_SHORT);
-        }*/
-        ToastUtil.showToast(this, "请求otp成功", Toast.LENGTH_SHORT);
+    public void registerResult(BaseEvent.RequestOtpEvent event) {
+        LogUtil.i(TAG, "registerResult");
+        if (event == BaseEvent.RequestOtpEvent.SUCCESS) {
+            ToastUtil.showToast(this, "请求otp成功", Toast.LENGTH_SHORT);
+        } else {
+            ToastUtil.showToast(this, "请求otp失败", Toast.LENGTH_SHORT);
+        }
+        //        ToastUtil.showToast(this, "请求otp成功", Toast.LENGTH_SHORT);
     }
 
     @Override
     protected void registerEventBus() {
         super.registerEventBus();
-        //        BusUtil.register(this);
-        if (!!EventBus.getDefault().hasSubscriberForEvent(Xevent.class))
-            EventBus.getDefault().register(this);
+        BusUtil.register(this);
+
         LogUtil.i(TAG, "registerEventBus");
     }
 
     @Override
     protected void unregisterEventBus() {
         super.unregisterEventBus();
-        //        BusUtil.unregister(this);
+        BusUtil.unregister(this);
     }
 }
