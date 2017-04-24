@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -14,14 +15,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.trello.rxlifecycle2.components.BuildConfig;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.lang.reflect.Field;
 
 import wincity.litao.com.App;
+import wincity.litao.com.R;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -70,6 +75,15 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             savedInstanceState.putParcelable("android:support:fragments", null);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            Window window = getWindow();
+            //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //设置状态栏颜色
+            window.setStatusBarColor(getResources().getColor(R.color.them_status));
         }
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
