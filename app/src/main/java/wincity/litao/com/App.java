@@ -5,6 +5,7 @@ import android.app.Application;
 import android.graphics.Color;
 
 import com.facebook.stetho.Stetho;
+import com.google.gson.Gson;
 import com.squareup.leakcanary.LeakCanary;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
@@ -30,7 +31,8 @@ public class App extends Application {
         instance = this;
 
         init();
-
+        BaseBean<XXbean> xXbeanBaseBean = new BaseBean<>();
+        new Gson().fromJson("s",BaseBean.class);
     }
     private void init(){
 //        BusUtil.register(this);

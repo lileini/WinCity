@@ -1,4 +1,4 @@
-package wincity.litao.com.activity;
+package wincity.litao.com.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

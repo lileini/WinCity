@@ -20,13 +20,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.trello.rxlifecycle2.components.BuildConfig;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-
 import java.lang.reflect.Field;
 
 import wincity.litao.com.App;
 import wincity.litao.com.R;
+import wincity.litao.com.base.mvp.MvpActivity;
+import wincity.litao.com.base.mvp.MvpPresenter;
+import wincity.litao.com.base.mvp.MvpView;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -36,7 +36,7 @@ import wincity.litao.com.util.ToastUtil;
  * Created by shang guangneng on 2016/6/8 0008.
  * Android development framework
  */
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>> extends MvpActivity<V,P> {
 
 
     protected String TAG;

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_marginTop="@dimen/px_100.0_dp"
@@ -11,6 +12,7 @@
         style="@style/Login_margin_Theme">
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="bottom"
@@ -21,6 +23,9 @@
             android:id="@+id/til_account"
             android:layout_width="0dp"
             android:layout_weight="1"
+            app:counterEnabled="true"
+            app:counterMaxLength="11"
+            app:errorEnabled="true"
             android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
@@ -29,7 +34,7 @@
                 android:inputType="number"
                 android:maxLength="11"
                 android:layout_weight="1"
-                android:background="@null"
+
                 android:hint="手机号" />
         </android.support.design.widget.TextInputLayout>
         <ImageView
@@ -56,31 +61,28 @@
             android:layout_height="match_parent"
             android:gravity="bottom"
             android:textSize="@dimen/px_18_sp"
-            android:text="密码："/>
+            android:text="密码："
+            android:visibility="gone"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:id="@+id/til_pwd">
+            android:id="@+id/til_pwd"
+            app:passwordToggleEnabled="true"
+
+            >
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_pwd"
                 android:inputType="textPassword"
                 style="@style/EditText_Theme"
                 android:background="@null"
-                android:hint="请输入密码" />
+                android:hint="密码"/>
         </android.support.design.widget.TextInputLayout>
 
         <ImageView
             android:id="@+id/iv_del_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
-            android:visibility="gone"
-            tools:visibility="visible" />
-        <ImageView
-            android:id="@+id/iv_show_pwd"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"
