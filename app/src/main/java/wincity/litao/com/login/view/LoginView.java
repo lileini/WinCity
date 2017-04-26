@@ -1,4 +1,4 @@
-package wincity.litao.com.ui.view;
+package wincity.litao.com.login.view;
 
 import wincity.litao.com.base.mvp.MvpView;
 

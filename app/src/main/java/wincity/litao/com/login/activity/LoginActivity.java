@@ -1,12 +1,10 @@
-package wincity.litao.com.ui.activity;
+package wincity.litao.com.login.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import wincity.litao.com.R;
 import wincity.litao.com.base.BaseActivity;
-import wincity.litao.com.base.mvp.MvpPresenter;
-import wincity.litao.com.ui.view.LoginView;
 
 /**
  * Created by admin on 2017/4/22.
