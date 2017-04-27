@@ -287,6 +287,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             }
         }
     }
+
     private ProgressDialog mProgressDialog;
     public  void showDialog(String title,boolean isCancel){
         closeDialog();
@@ -300,9 +301,11 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         mProgressDialog.show();
 
     }
+
     public  void showDialog(String title){
         showDialog(title, false);
     }
+
     public void closeDialog(){
 
         if(mProgressDialog!=null&&mProgressDialog.isShowing()){

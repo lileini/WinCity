@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-<!--    <View
-        style="@style/Login_margin_Theme"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_1.0_dp"
-        android:background="@color/black"/>-->
 
     <LinearLayout
         style="@style/Login_margin_Theme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_100.0_dp">
+        android:layout_height="@dimen/px_40.0_dp"
+        android:layout_marginTop="@dimen/px_100.0_dp"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:text="账号："
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/px_15.0_dp"
+            android:gravity="center"
+            android:text="账号"
+            android:textColor="@color/black"
             android:textSize="@dimen/px_18_sp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/et_account"
+            style="@style/EditText_Theme"
+            android:layout_marginRight="@dimen/px_5.0_dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入账号"
+            android:inputType="number"
+            android:maxLength="11"/>
+        <!--<android.support.design.widget.TextInputLayout
             android:id="@+id/til_account"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,31 +51,57 @@
                 android:inputType="number"
 
                 android:maxLength="11"/>
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>-->
 
-        <ImageView
-            android:id="@+id/iv_del_account"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <Button
+            android:id="@+id/btn_del_account"
+            android:layout_width="@dimen/px_15.0_dp"
+            android:layout_height="@dimen/px_15.0_dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/px_5.0_dp"
+            android:layout_marginRight="@dimen/px_10.0_dp"
+            android:background="@drawable/selector_del"
             android:src="@mipmap/ic_launcher"
             android:visibility="invisible"
             tools:visibility="visible"/>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/px_10.0_dp"
-        android:layout_width="match_parent"
+    <View
         style="@style/Login_margin_Theme"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1.0_dp"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        style="@style/Login_margin_Theme"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_40.0_dp"
+        android:layout_marginTop="@dimen/px_10.0_dp">
+
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="bottom"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/px_15.0_dp"
+            android:gravity="center"
+            android:text="密码"
+            android:textColor="@color/black"
             android:textSize="@dimen/px_18_sp"
-            android:text="密码："
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/et_pwd"
+            style="@style/EditText_Theme"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/px_5.0_dp"
+            android:layout_weight="1"
+            android:background="@null"
+
+            android:hint="请输入密码"
+            android:inputType="textPassword"/>
+        <!--<android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -81,25 +116,65 @@
                 style="@style/EditText_Theme"
                 android:background="@null"
                 android:hint="密码"/>
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>-->
 
-        <ImageView
-            android:id="@+id/iv_del_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
+        <Button
+            android:id="@+id/btn_del_pwd"
+            android:layout_width="@dimen/px_15.0_dp"
+            android:layout_height="@dimen/px_15.0_dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/px_10.0_dp"
+            android:background="@drawable/selector_del"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="visible"/>
+
+        <Button
+            android:id="@+id/btn_show_pwd"
+            android:layout_width="@dimen/px_20.0_dp"
+            android:layout_height="@dimen/px_15.0_dp"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_look_pwd"
+            android:visibility="visible"
+            tools:visibility="visible"/>
     </LinearLayout>
+
     <View
         style="@style/Login_margin_Theme"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_1.0_dp"
         android:background="@color/black"/>
+
     <Button
         android:id="@+id/btn_login"
         style="@style/Login_margin_Theme"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_60.0_dp"
-        android:text="登录"/>
+        android:layout_height="@dimen/px_50.0_dp"
+        android:layout_marginTop="@dimen/px_60.0_dp"
+        android:background="@color/actionsheet_red"
+        android:text="登录"
+        android:textColor="@color/white"/>
+
+    <RelativeLayout
+        style="@style/Login_margin_Theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_10.0_dp">
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="快速注册"/>
+
+        <TextView
+            android:id="@+id/tv_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="忘记密码"
+            />
+    </RelativeLayout>
 </LinearLayout>

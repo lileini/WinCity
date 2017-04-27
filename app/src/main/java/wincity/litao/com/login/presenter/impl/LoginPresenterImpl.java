@@ -13,12 +13,12 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
 
     @Override
     public void requestLogin(String phone,String pwd) {
-        getView().showDialog();
+        getView().showLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                     if (!isViewAttached()){
                         return;
                     }
@@ -26,7 +26,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
                         @Override
                         public void run() {
                             getView().success();
-                            getView().dissMissDialog();
+                            getView().dissmissLoading();
                         }
                     });
                 } catch (InterruptedException e) {

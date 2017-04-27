@@ -12,11 +12,11 @@ public class ItemLongClickListener implements AdapterView.OnItemLongClickListene
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Object obj = parent.getAdapter().getItem(position);
         if (obj==null)return false;
-//        showDialog(view.getContext(), obj);
+//        showLoading(view.getContext(), obj);
         return true;
     }
 
-    /*private void showDialog(final Context context, final Object object) {
+    /*private void showLoading(final Context context, final Object object) {
         ActionSheetDialog actionSheetDialog = new ActionSheetDialog(context)
                 .builder()
                 .setCancelable(true)
