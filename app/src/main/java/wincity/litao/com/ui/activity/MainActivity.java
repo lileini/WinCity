@@ -18,9 +18,11 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import wincity.litao.com.R;
 import wincity.litao.com.base.BaseActivity;
+import wincity.litao.com.base.mvp.MvpPresenter;
 import wincity.litao.com.bus.BaseEvent;
 import wincity.litao.com.bus.BusUtil;
 import wincity.litao.com.http.ApiManager;
+import wincity.litao.com.login.presenter.impl.LoginPresenterImpl;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -46,6 +48,7 @@ public class MainActivity extends BaseActivity {
                             .throttleFirst(1, TimeUnit.SECONDS)
                             .take(10)
                             .onBackpressureDrop()
+                            .compose(MainActivity.this.<ResponseBody>bindToLifecycle())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Consumer<ResponseBody>() {
@@ -85,6 +88,12 @@ public class MainActivity extends BaseActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    @NonNull
+    @Override
+    public MvpPresenter createPresenter() {
+        return new LoginPresenterImpl();
     }
 
     //    No subscribers registered for event class wincity.litao.com.bus.BaseEvent$RequestOtpEvent

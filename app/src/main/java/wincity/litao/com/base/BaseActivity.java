@@ -27,6 +27,7 @@ import wincity.litao.com.R;
 import wincity.litao.com.base.mvp.MvpActivity;
 import wincity.litao.com.base.mvp.MvpPresenter;
 import wincity.litao.com.base.mvp.MvpView;
+import wincity.litao.com.ui.activity.MainActivity;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
@@ -101,6 +102,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         LogUtil.i(TAG,"onStart");
         registerEventBus();
 
+    }
+    public static void lauch(Context context,Intent intent){
+        intent.setClass(context,MainActivity.class);
+        context.startActivity(intent);
     }
 
     @Override

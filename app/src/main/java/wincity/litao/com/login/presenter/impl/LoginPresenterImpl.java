@@ -3,13 +3,37 @@ package wincity.litao.com.login.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import wincity.litao.com.base.BaseActivity;
+import wincity.litao.com.base.mvp.MvpBasePresenter;
 import wincity.litao.com.login.presenter.LoginPresenter;
 import wincity.litao.com.login.view.LoginView;
 
-public class LoginPresenterImpl implements LoginPresenter {
-    @Override
-    public void requestLogin() {
+public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements LoginPresenter {
 
+
+    @Override
+    public void requestLogin(String phone,String pwd) {
+        getView().showDialog();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                    if (!isViewAttached()){
+                        return;
+                    }
+                    ((BaseActivity)getView()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getView().success();
+                            getView().dissMissDialog();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -22,16 +46,8 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     }
 
-
     @Override
-    public void attachView(LoginView view) {
+    public void register() {
 
     }
-
-    @Override
-    public void detachView(boolean retainInstance) {
-
-    }
-
-
 }

@@ -94,4 +94,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_1.0_dp"
         android:background="@color/black"/>
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/Login_margin_Theme"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_60.0_dp"
+        android:text="登录"/>
 </LinearLayout>
