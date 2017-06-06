@@ -17,9 +17,6 @@ import wincity.litao.com.base.mvp.MvpView;
 import wincity.litao.com.util.LogUtil;
 import wincity.litao.com.util.ToastUtil;
 
-/**
- * Created by shang guangneng on 2016/6/8 0008.
- */
 public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpFragment<V,P> {
 
     protected String TAG;

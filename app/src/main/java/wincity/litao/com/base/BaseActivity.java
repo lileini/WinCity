@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import wincity.litao.com.App;
 import wincity.litao.com.R;
 import wincity.litao.com.base.mvp.MvpActivity;
@@ -34,7 +36,7 @@ import wincity.litao.com.util.ToastUtil;
 //import com.squareup.leakcanary.RefWatcher;
 
 /**
- * Created by shang guangneng on 2016/6/8 0008.
+ *
  * Android development framework
  */
 public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>> extends MvpActivity<V,P> {
@@ -43,6 +45,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
     protected String TAG;
 
     private SparseArray<View> mViews = new SparseArray<>();
+    private Unbinder bind;
     /**
      * @return root 设置root视图ID =xml layout id
      */
@@ -91,11 +94,16 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 //        setTheme(R.style.pageTheme);
         TAG = getClass().getSimpleName();
         LogUtil.i(TAG,"onCreate");
-
-
-        setTopBar();
+        View view = setLayoutId();
+        setContentView(view);
+        bind = ButterKnife.bind(view);
+        initData();
+        initView();
     }
+    protected abstract View setLayoutId();
 
+    protected abstract void  initView();
+    protected abstract void  initData();
     @Override
     protected void onStart() {
         super.onStart();
@@ -147,6 +155,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         LogUtil.i(TAG,"onDestroy");
         clearReferences();
         super.onDestroy();
+        bind.unbind();
         closeDialog();
     }
 

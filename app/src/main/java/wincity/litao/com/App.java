@@ -18,6 +18,7 @@ import cn.finalteam.galleryfinal.ThemeConfig;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import wincity.litao.com.util.GlideImageLoader;
+import wincity.litao.com.util.LogUtil;
 
 /**
  * created by litao
@@ -33,12 +34,13 @@ public class App extends Application {
     }
     private void init(){
 //        BusUtil.register(this);
-        Stetho.initializeWithDefaults(this);
+        LogUtil.init(this);
         //Bugly init
 //        CrashReport.initCrashReport(getApplicationContext(), "900053490"/*App ID*/, false);
 
         if (BuildConfig.DEBUG){
             LeakCanary.install(this);
+            Stetho.initializeWithDefaults(this);
         }
 
         Stetho.initialize(Stetho.newInitializerBuilder(this)

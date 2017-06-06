@@ -99,6 +99,6 @@ public class ApiManager {
 
     }
     public Flowable<ResponseBody> getOtp(){
-        return apiServer.otpRequest("8615928188669","sms:twilio","GLOBALROAM");
+        return apiServer.otpRequest("8613709089792","sms:twilio","GLOBALROAM");
     }
 }
